@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- 视图配置，适应移动端 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 网页标题 -->
+<title>Quotation with Source and Header</title>
+<style>
+.music-control.paused {
+  background-image: url('https://www.z4a.net/images/2024/02/17/play-button.th.png'); /* 暂停时的按钮图案 */
+}
+.music-control.playing {
+  background-image: url('https://www.z4a.net/images/2024/02/17/video-pause-button.th.png'); /* 播放时的按钮图案 */
+}
+/* 基础样式设置 */
+body, html {
+  height: 100%; /* 高度设置为100% */
+  margin: 0; /* 外边距设为0 */
+  padding: 0; /* 内边距设为0 */
+  background-image: url('https://www.z4a.net/images/2024/02/16/1000394571.png'); /* 背景图片 */
+  background-position: center; /* 背景图片位置 */
+  background-repeat: no-repeat; /* 背景图片不重复 */
+  background-size: cover; /* 背景图片覆盖整个页面 */
+  font-family: Arial, sans-serif; /* 字体样式 */
+  color: white; /* 字体颜色 */
+  text-shadow: 2px 2px 4px #000; /* 文字阴影 */
+  overflow: hidden; /* 超出部分隐藏 */
+}
+/* 页头样式 */
+.header {
+  display: flex; /* 弹性盒模型显示 */
+  justify-content: space-between; /* 两端对齐 */
+  align-items: center; /* 垂直居中 */
+  background-color: rgba(255, 255, 255, 0.5); /* 背景色，半透明 */
+  backdrop-filter: blur(10px); /* 背景模糊滤镜 */
+  position: fixed; /* 固定位置 */
+  top: 0; /* 顶部对齐 */
+  width: 100%; /* 宽度为100% */
+  padding: 10px 20px; /* 内边距 */
+  box-sizing: border-box; /* 盒模型的内容包括边框和填充 */
+}
+.header .logo {
+  font-size: 48px; /* logo字体大小 */
+}
+.header .profile {
+  display: flex; /* 弹性显示 */
+  align-items: center; /* 垂直居中 */
+  font-size: 24px; /* 字体大小 */
+}
+.header img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* 圆形图片 */
+  margin-left: 10px; /* 左边距 */
+}
+/* 引语样式 */
+#quote {
+  text-align: center; /* 居中对齐 */
+  width: 80%; /* 宽度 */
+  font-size: 96px; /* 字体大小 */
+  margin: 100px auto 20px; /* 外边距 */
+}
+/* 来源样式 */
+#source {
+  text-align: center; /* 居中对齐 */
+  width: 80%; /* 宽度 */
+  font-size: 48px; /* 字体大小 */
+  margin: 0 auto; /* 上下0，左右自动 */
+}
+/* 音乐控制样式 */
+.music-control {
+  position: fixed; /* 固定位置 */
+  bottom: 20px; /* 底部对齐 */
+  left: 20px; /* 左对齐 */
+  width: 160px; /* 宽度 */
+  height: 160px; /* 高度 */
+  background-color: rgba(255, 255, 255, 0.5); /* 背景颜色，半透明 */
+  backdrop-filter: blur(10px); /* 背景模糊滤镜 */
+  border-radius: 50%; /* 圆形 */
+  cursor: pointer; /* 鼠标样式为手指 */
+  background-repeat: no-repeat; /* 背景不重复 */
+  background-position: center; /* 背景位置居中 */
+}
+.paused {
+  background-image: url('https://www.z4a.net/images/2024/02/17/play-button.th.png'); /* 暂停状态显示的图案 */
+}
+
+.playing {
+  background-image: url('https://www.z4a.net/images/2024/02/17/video-pause-button.th.png'); /* 播放状态显示的图案 */
+}
+</style>
+</head>
+<body>
+<!-- 页面头部，展示logo和用户头像 -->
+<div class="header">
+  <div class="logo">一言 · 诗词</div>
+  <div class="profile"><img src="https://www.z4a.net/images/2024/02/16/1000545431.png">湘权_CN</div>
+</div>
+<!-- 引语和来源的显示区域 -->
+<div id="quote">获取中...</div>
+<div id="source"></div>
+<!-- 背景音乐 -->
+<audio id="bg-music" loop>
+  <source src="https://dlink.host/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBdlZ1VnVSZ004dFhyR1M1aGxtWnl2Y0d4aF9ZP2U9UTJLRGRF.wav" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<!-- 音乐控制按钮，根据状态变化显示不同的图标 -->
+<div class="music-control paused" onclick="toggleMusic()"></div>
+<script>
+// 异步获取引语
+async function fetchQuote() {
+  try {
+    const response = await fetch('https://international.v1.hitokoto.cn/?c=i&encode=json');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    document.getElementById('quote').textContent = data.hitokoto; // 显示引语
+    document.getElementById('source').textContent = `${data.from}`; // 显示来源
+  } catch (error) {
+    console.error('Fetch error: ' + error.message);
+    document.getElementById('quote').textContent = '加载失败'; // 错误处理
+    document.getElementById('source').textContent = '';
+  }
+}
+// 切换音乐播放状态
+function toggleMusic() {
+  const music = document.getElementById('bg-music');
+  const control = document.querySelector('.music-control');
+  if (music.paused) {
+    music.play();
+    control.classList.remove('paused');
+    control.classList.add('playing');
+  } else {
+    music.pause();
+    control.classList.remove('playing');
+    control.classList.add('paused');
+  }
+}
+window.onload = fetchQuote; // 页面加载时获取引语
+</script>
+</body>
+</html>
