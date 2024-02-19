@@ -2,111 +2,169 @@
 <html lang="zh-cn">
 <head>
 <meta charset="UTF-8">
-<!-- 视图配置，适应移动端 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- 网页标题 -->
 <title>一言 · 诗词</title>
 <style>
 .music-control.paused {
-  background-image: url('https://www.z4a.net/images/2024/02/17/play-button.th.png'); /* 暂停时的按钮图案 */
+  background-image: url('https://www.z4a.net/images/2024/02/17/play-button.th.png');
 }
+
 .music-control.playing {
-  background-image: url('https://www.z4a.net/images/2024/02/17/video-pause-button.th.png'); /* 播放时的按钮图案 */
+  background-image: url('https://www.z4a.net/images/2024/02/17/video-pause-button.th.png');
 }
-/* 基础样式设置 */
+
 body, html {
-  height: 100%; /* 高度设置为100% */
-  margin: 0; /* 外边距设为0 */
-  padding: 0; /* 内边距设为0 */
-  background-image: url('https://www.z4a.net/images/2024/02/16/1000394571.png'); /* 背景图片 */
-  background-position: center; /* 背景图片位置 */
-  background-repeat: no-repeat; /* 背景图片不重复 */
-  background-size: cover; /* 背景图片覆盖整个页面 */
-  font-family: Arial, sans-serif; /* 字体样式 */
-  color: white; /* 字体颜色 */
-  text-shadow: 2px 2px 4px #000; /* 文字阴影 */
-  overflow: hidden; /* 超出部分隐藏 */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: url('https://www.z4a.net/images/2024/02/16/1000394571.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-shadow: 2px 2px 4px #000;
+  overflow: hidden;
 }
-/* 页头样式 */
+
 .header {
-  display: flex; /* 弹性盒模型显示 */
-  justify-content: space-between; /* 两端对齐 */
-  align-items: center; /* 垂直居中 */
-  background-color: rgba(255, 255, 255, 0.5); /* 背景色，半透明 */
-  backdrop-filter: blur(10px); /* 背景模糊滤镜 */
-  position: fixed; /* 固定位置 */
-  top: 0; /* 顶部对齐 */
-  width: 100%; /* 宽度为100% */
-  padding: 10px 20px; /* 内边距 */
-  box-sizing: border-box; /* 盒模型的内容包括边框和填充 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }
+
 .header .logo {
-  font-size: 48px; /* logo字体大小 */
+  font-size: 48px;
 }
+
 .header .profile {
-  display: flex; /* 弹性显示 */
-  align-items: center; /* 垂直居中 */
-  font-size: 24px; /* 字体大小 */
+  display: flex;
+  align-items: center;
+  font-size: 24px;
 }
+
 .header img {
   width: 50px;
   height: 50px;
-  border-radius: 50%; /* 圆形图片 */
-  margin-left: 10px; /* 左边距 */
-}
-/* 引语样式 */
-#quote {
-  text-align: center; /* 居中对齐 */
-  width: 80%; /* 宽度 */
-  font-size: 72px; /* 字体大小 */
-  margin: 300px auto 50px; /* 外边距 */
-}
-/* 来源样式 */
-#source {
-  text-align: center; /* 居中对齐 */
-  width: 80%; /* 宽度 */
-  font-size: 48px; /* 字体大小 */
-  margin: 0px 20px 0px 300px; /* 上下0，左300，右20 */
-}
-/* 音乐控制样式 */
-.music-control {
-  position: fixed; /* 固定位置 */
-  bottom: 20px; /* 底部对齐 */
-  left: 20px; /* 左对齐 */
-  width: 160px; /* 宽度 */
-  height: 160px; /* 高度 */
-  background-color: rgba(255, 255, 255, 0.5); /* 背景颜色，半透明 */
-  backdrop-filter: blur(10px); /* 背景模糊滤镜 */
-  border-radius: 50%; /* 圆形 */
-  cursor: pointer; /* 鼠标样式为手指 */
-  background-repeat: no-repeat; /* 背景不重复 */
-  background-position: center; /* 背景位置居中 */
-}
-.paused {
-  background-image: url('https://www.z4a.net/images/2024/02/17/play-button.th.png'); /* 暂停状态显示的图案 */
+  border-radius: 50%;
+  margin-left: 10px;
 }
 
-.playing {
-  background-image: url('https://www.z4a.net/images/2024/02/17/video-pause-button.th.png'); /* 播放状态显示的图案 */
+#quote {
+  text-align: center;
+  width: 80%;
+  font-size: 72px;
+  margin: 300px auto 50px; /* Adjusted the margin top to make space for search box */
 }
+
+#source {
+  text-align: center;
+  width: 80%;
+  font-size: 48px;
+  margin: 0px auto;
+}
+
+.music-control {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 160px;
+  height: 160px;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* New styles for search box and engine selector */
+.search-container {
+  position: fixed;
+  top: 100px; /* Positioned just above the quote */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-box {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 300px;
+  outline: none;
+  color: black;
+  border-radius: 50px;
+}
+
+.search-button, .engine-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  outline: none;
+}
+
+.engine-menu {
+  display: none;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 5px 0;
+  z-index: 1;
+  border-radius: 5px;
+  top: 45px; /* Adjusted to show below the button */
+}
+
+.engine-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.engine-menu a:hover {background-color: #ddd;}
 </style>
 </head>
 <body>
-<!-- 页面头部，展示logo和用户头像 -->
 <div class="header">
   <div class="logo">一言 · 诗词(v0.7)</div>
   <div class="profile"><img src="https://www.z4a.net/images/2024/02/16/1000545431.png">湘权_CN</div>
 </div>
-<!-- 引语和来源的显示区域 -->
+
+<!-- Search box and engine selector added here -->
+<div class="search-container">
+  <button class="search-button engine-button" onclick="toggleEngineMenu()">⚙️</button>
+  <div class="engine-menu" id="engineMenu">
+    <a href="#" onclick="setSearchEngine('https://www.bing.com/search?q=', '必应')">必应</a>
+    <a href="#" onclick="setSearchEngine('https://www.baidu.com/s?wd=', '百度')">百度</a>
+    <a href="#" onclick="setSearchEngine('https://www.google.com/search?q=', '谷歌')">谷歌</a>
+    <a href="#" onclick="setSearchEngine('https://duckduckgo.com/?q=', 'DuckDuckGo')">DuckDuckGo</a>
+  </div>
+  <input type="text" id="searchBox" class="search-box" placeholder="在此输入搜索内容...">
+  <button class="search-button" onclick="performSearch()">🔍</button>
+</div>
+
 <div id="quote">获取中...</div>
 <div id="source"></div>
-<!-- 背景音乐 -->
+
 <audio id="bg-music" loop>
   <source src="https://dlink.host/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBdlZ1VnVSZ004dFhyR1M1aGxtWnl2Y0d4aF9ZP2U9UTJLRGRF.wav" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
-<!-- 音乐控制按钮，根据状态变化显示不同的图标 -->
 <div class="music-control paused" onclick="toggleMusic()"></div>
+
 <script>
 // 异步获取引语
 async function fetchQuote() {
@@ -116,15 +174,15 @@ async function fetchQuote() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    document.getElementById('quote').textContent = data.hitokoto; // 显示引语
-    document.getElementById('source').textContent = `出自「${data.from}」`; // 显示来源
+    document.getElementById('quote').textContent = data.hitokoto;
+    document.getElementById('source').textContent = `出自「${data.from}」`;
   } catch (error) {
     console.error('Fetch error: ' + error.message);
-    document.getElementById('quote').textContent = '加载失败'; // 错误处理
+    document.getElementById('quote').textContent = '加载失败';
     document.getElementById('source').textContent = '';
   }
 }
-// 切换音乐播放状态
+
 function toggleMusic() {
   const music = document.getElementById('bg-music');
   const control = document.querySelector('.music-control');
@@ -138,7 +196,42 @@ function toggleMusic() {
     control.classList.add('paused');
   }
 }
-window.onload = fetchQuote; // 页面加载时获取引语
+
+window.onload = fetchQuote;
+
+// 新增的搜索相关功能
+let searchEngineUrl = 'https://www.bing.com/search?q='; // 默认搜索引擎URL
+
+function performSearch() {
+  const searchBox = document.getElementById('searchBox');
+  const query = searchBox.value;
+  window.open(searchEngineUrl + encodeURIComponent(query), '_blank');
+}
+
+function setSearchEngine(engineUrl, engineName) {
+  searchEngineUrl = engineUrl;
+  document.getElementById('engineMenu').style.display = 'none';
+  console.log(`搜索引擎设置为: ${engineName}`);
+}
+
+function toggleEngineMenu() {
+  const menu = document.getElementById('engineMenu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+// 点击页面其他位置时隐藏引擎选择菜单
+window.onclick = function(event) {
+  if (!event.target.matches('.engine-button')) {
+    var dropdowns = document.getElementsByClassName("engine-menu");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.style.display === 'block') {
+        openDropdown.style.display = 'none';
+      }
+    }
+  }
+}
 </script>
 </body>
 </html>
