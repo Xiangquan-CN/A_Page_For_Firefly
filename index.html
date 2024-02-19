@@ -9,12 +9,10 @@
 .music-control.paused {
   background-image: url('https://www.z4a.net/images/2024/02/17/play-button.th.png');
 }
-
 /* 播放状态时的背景图片 */
 .music-control.playing {
   background-image: url('https://www.z4a.net/images/2024/02/17/video-pause-button.th.png');
 }
-
 /* 设置网页的背景、字体样式等 */
 body, html {
   height: 100%;
@@ -29,7 +27,6 @@ body, html {
   text-shadow: 2px 2px 4px #000; /* 文字阴影效果 */
   overflow: hidden;
 }
-
 /* 页面顶部导航栏的样式 */
 .header {
   display: flex; /* 使用弹性盒模型进行布局 */
@@ -43,26 +40,22 @@ body, html {
   padding: 10px 20px;
   box-sizing: border-box; /* 盒子模型为边框盒 */
 }
-
 /* 顶部导航栏内的Logo样式 */
 .header .logo {
   font-size: 48px;
 }
-
 /* 用户头像样式 */
 .header .profile {
   display: flex;
   align-items: center;
   font-size: 24px;
 }
-
 .header img {
   width: 50px;
   height: 50px;
   border-radius: 50%; /* 圆形头像 */
   margin-left: 10px;
 }
-
 /* 诗词显示部分的样式 */
 #quote {
   text-align: center;
@@ -70,7 +63,6 @@ body, html {
   font-size: 72px;
   margin: 300px auto 50px;
 }
-
 /* 出处显示部分的样式 */
 #source {
   text-align: center;
@@ -78,7 +70,6 @@ body, html {
   font-size: 48px;
   margin: 0px auto;
 }
-
 /* 音乐控制按钮的基本样式 */
 .music-control {
   position: fixed; /* 固定定位 */
@@ -93,7 +84,6 @@ body, html {
   background-repeat: no-repeat; /* 背景图像不重复 */
   background-position: center;
 }
-
 /* 搜索框及搜索引擎选择按钮的样式 */
 .search-container {
   position: fixed; /* 固定定位 */
@@ -104,7 +94,6 @@ body, html {
   align-items: center; /* 子元素在交叉轴上居中对齐 */
   gap: 10px; /* 子元素之间的间隔 */
 }
-
 .search-box {
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
@@ -115,7 +104,6 @@ body, html {
   color: black;
   border-radius: 5px;
 }
-
 .search-button, .engine-button {
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
@@ -125,7 +113,6 @@ body, html {
   border-radius: 5px;
   outline: none;
 }
-
 /* 搜索引擎选择菜单的样式 */
 .engine-menu {
   display: none; /* 默认不显示 */
@@ -146,7 +133,6 @@ body, html {
   display: block;
   border-radius: 5px;
 }
-
 .engine-menu a:hover {background-color: #ddd;}
 </style>
 </head>
@@ -155,7 +141,6 @@ body, html {
   <div class="logo">一言 · 诗词(v1.0)</div>
   <div class="profile"><img src="https://www.z4a.net/images/2024/02/16/1000545431.png">湘权_CN</div>
 </div>
-
 <!-- 搜索框和搜索引擎选择器组件部分 -->
 <div class="search-container">
   <button class="search-button engine-button" onclick="toggleEngineMenu()">⚙️</button>
@@ -171,17 +156,14 @@ body, html {
   <!-- 搜索按钮 -->
   <button class="search-button" onclick="performSearch()">🔍</button>
 </div>
-
 <div id="quote">获取中……</div>
 <div id="source"></div>
-
 <!-- 背景音乐 -->
 <audio id="bg-music" loop>
   <source src="https://dlink.host/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBdlZ1VnVSZ004dFhyR1M1aGxtWnl2Y0d4aF9ZP2U9UTJLRGRF.wav" type="audio/mpeg">
   浏览器不支持音频播放。
 </audio>
 <div class="music-control paused" onclick="toggleMusic()"></div>
-
 <script>
 // 异步函数获取一言诗词数据并展示
 async function fetchQuote() {
@@ -199,7 +181,6 @@ async function fetchQuote() {
     document.getElementById('source').textContent = '';
   }
 }
-
 // 控制背景音乐播放和暂停的函数
 function toggleMusic() {
   const music = document.getElementById('bg-music');
@@ -214,13 +195,10 @@ function toggleMusic() {
     control.classList.add('paused');
   }
 }
-
 // 页面加载完毕时，自动获取一言诗词
 window.onload = fetchQuote;
-
 // 默认搜索引擎URL
 let searchEngineUrl = 'https://www.bing.com/search?q=';
-
 // 执行搜索的函数
 function performSearch() {
   const searchBox = document.getElementById('searchBox');
@@ -229,27 +207,23 @@ function performSearch() {
     window.open(searchEngineUrl + encodeURIComponent(query), '_blank');
   }
 }
-
 // 设置搜索引擎的函数
 function setSearchEngine(engineUrl, engineName) {
   searchEngineUrl = engineUrl;
   document.getElementById('engineMenu').style.display = 'none';
   console.log(`搜索引擎设置为: ${engineName}`);
 }
-
 // 显示或隐藏搜索引擎选择菜单的函数
 function toggleEngineMenu() {
   const menu = document.getElementById('engineMenu');
   menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
 }
-
 // 输入框按下Enter键时执行搜索
 function searchOnEnter(event) {
   if (event.key === "Enter") {
     performSearch();
   }
 }
-
 // 点击页面其他位置时，隐藏搜索引擎菜单
 window.onclick = function(event) {
   if (!event.target.matches('.engine-button')) {
