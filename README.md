@@ -1,2 +1,3 @@
-I write a page for Firefly.
-I love Firefly!
+写了一个网站。本人技术不行，写的不太好请见谅。
+点击播放按钮会播放《使一颗心免于哀伤》，可能要加载一会。
+我爱流萤！
