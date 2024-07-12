@@ -134,6 +134,25 @@ body, html {
   border-radius: 5px;
 }
 .engine-menu a:hover {background-color: #ddd;}
+/* 定义数字时钟的样式 */
+#clock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: '微软雅黑', sans-serif;
+  font-size: 72px;
+  color: white;
+  text-align: center;
+}
+/* 树叶图标按钮 */
+.leaf-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 48px;
+  cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -164,6 +183,10 @@ body, html {
   浏览器不支持音频播放。
 </audio>
 <div class="music-control paused" onclick="toggleMusic()"></div>
+<!-- 树叶图标 -->
+<div class="leaf-icon" onclick="toggleClock()">🍃</div>
+<!-- 数字时钟显示 -->
+<div id="clock" style="display: none;"></div>
 <script>
 // 异步函数获取一言诗词数据并展示
 async function fetchQuote() {
@@ -236,6 +259,36 @@ window.onclick = function(event) {
       }
     }
   }
+}
+
+// 显示或隐藏时钟的函数
+let clockVisible = false;
+function toggleClock() {
+  if (clockVisible) {
+    document.getElementById('quote').style.display = 'block';
+    document.getElementById('source').style.display = 'block';
+    document.getElementById('clock').style.display = 'none';
+    clockVisible = false;
+  } else {
+    document.getElementById('quote').style.display = 'none';
+    document.getElementById('source').style.display = 'none';
+    document.getElementById('clock').style.display = 'block';
+    clockVisible = true;
+    startClock();
+  }
+}
+
+// 开始时钟显示的函数
+function startClock() {
+  function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
 }
 </script>
 </body>
