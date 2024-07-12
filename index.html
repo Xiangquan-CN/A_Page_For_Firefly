@@ -141,12 +141,20 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: '微软雅黑', sans-serif;
-  font-size: 72px;
+  font-size: 256px;
   color: white;
   text-align: center;
 }
 /* 树叶图标按钮 */
 .leaf-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 80px;
+  font-size: 48px;
+  cursor: pointer;
+}
+/* 刷新按钮样式 */
+.refresh-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -185,6 +193,8 @@ body, html {
 <div class="music-control paused" onclick="toggleMusic()"></div>
 <!-- 树叶图标 -->
 <div class="leaf-icon" onclick="toggleClock()">🍃</div>
+<!-- 刷新按钮 -->
+<div class="refresh-button" onclick="fetchQuote()">🔄</div>
 <!-- 数字时钟显示 -->
 <div id="clock" style="display: none;"></div>
 <script>
