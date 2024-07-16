@@ -92,7 +92,7 @@ body, html {
   z-index: 1;
   border-radius: 5px;
   bottom: 10vh; /* 调整显示位置 */
-  writing-mode:vertical-lr; /* 水平排列 */
+  writing-mode: vertical-lr; /* 水平排列 */
 }
 .music-menu a {
   color: white;
@@ -101,9 +101,42 @@ body, html {
   text-decoration: none;
   display: block;
   border-radius: 5px;
-  writing-mode:vertical-lr; /* 水平排列 */
+  writing-mode: vertical-lr; /* 水平排列 */
 }
 .music-menu a:hover {
+  background-color: #ddd;
+}
+/* 第二个音乐选择菜单的样式 */
+.music-selection-2 {
+  position: fixed; /* 固定定位 */
+  bottom: 5vh;  /* 调整位置 */
+  left: 25vw; /* 在播放按钮和第一个选择菜单右边 */
+  font-size: 8vw; /* 使用相对单位，使其能随屏幕变化 */
+  cursor: pointer; /* 鼠标悬停时的指针形状 */
+  user-select: none; /* 禁用用户选中 */
+}
+.music-menu-2 {
+  display: none; /* 默认不显示 */
+  position: absolute; /* 绝对定位 */
+  background-color: rgba(255, 255, 255, 0.5); /* 背景色透明度 */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* 阴影效果 */
+  padding: 1vh 1vw; /* 使用相对单位，使其能随屏幕变化 */
+  font-size: 4vw; 
+  z-index: 1;
+  border-radius: 5px;
+  bottom: 10vh; /* 调整显示位置 */
+  writing-mode: vertical-lr; /* 水平排列 */
+}
+.music-menu-2 a {
+  color: white;
+  padding: 1vh 1vw; /* 使用相对单位，使其能随屏幕变化 */
+  font-size: 3vw; 
+  text-decoration: none;
+  display: block;
+  border-radius: 5px;
+  writing-mode: vertical-lr; /* 水平排列 */
+}
+.music-menu-2 a:hover {
   background-color: #ddd;
 }
 /* 搜索框及搜索引擎选择按钮的样式 */
@@ -221,7 +254,7 @@ body, html {
   #clock {
     font-size: 15vw;
   }
-  .leaf-icon, .refresh-button, .copy-button, .music-control, .music-selection {
+  .leaf-icon, .refresh-button, .copy-button, .music-control, .music-selection, .music-selection-2 {
     font-size: 5vw;
   }
 }
@@ -229,7 +262,7 @@ body, html {
 </head>
 <body>
 <div class="header">
-  <div class="logo">一言 · 诗词(v2.2)</div>
+  <div class="logo">一言 · 诗词(v2.5)</div>
   <div class="profile"><img src="https://www.z4a.net/images/2024/02/16/1000545431.png">湘权_CN</div>
 </div>
 <!-- 搜索框和搜索引擎选择器组件部分 -->
@@ -256,12 +289,18 @@ body, html {
 </audio>
 <!-- 播放/暂停按钮 -->
 <div class="music-control paused" onclick="toggleMusic()">▶️</div>
-<!-- 音乐选择按钮及其选项 -->
+<!-- 第一组音乐选择按钮及其选项 -->
 <div class="music-selection">
-  <div class="music-select-button" onclick="toggleMusicMenu()">🎵</div>
-  <div class="music-menu" id="musicMenu">
+  <div class="music-select-button" onclick="toggleMusicMenu(1)">🎵</div>
+  <div class="music-menu" id="musicMenu1">
     <a href="#" onclick="changeMusic('https://dlink.host/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBdlZ1VnVSZ004dFhyajRBUWFjdmQ1bXJQeldyP2U9bVRWbVFH.flac')">在银河中孤独摇摆</a>
     <a href="#" onclick="changeMusic('https://dlink.host/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBdlZ1VnVSZ004dFhyajhtUzJOSnowZnB1My1FP2U9SVR1Q05J.flac')">使一颗心免于哀伤</a>
+  </div>
+</div>
+<!-- 第二组音乐选择按钮及其选项 -->
+<div class="music-selection-2">
+  <div class="music-select-button" onclick="toggleMusicMenu(2)">🎵</div>
+  <div class="music-menu music-menu-2" id="musicMenu2">
     <a href="#" onclick="changeMusic('https://dlink.host/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBdlZ1VnVSZ004dFhya0JaMGc1NnNscVIyWWpSP2U9T0o5WWhy.flac')">希望有羽毛和翅膀</a>
     <a href="#" onclick="changeMusic('https://dlink.host/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBdlZ1VnVSZ004dFhya0Y0dkVGU1prQnU5V0NiP2U9bWx0T1NN.flac')">若我不曾见过太阳</a>
   </div>
@@ -279,7 +318,6 @@ body, html {
 const apiUrl1 = 'https://v1.hitokoto.cn/?c=i&encode=json';
 const apiUrl2 = 'https://international.v1.hitokoto.cn/?c=i&encode=json';
 let currentApi = 1;
-
 // 异步函数获取一言诗词数据并展示
 async function fetchQuote() {
   const apiUrl = currentApi === 1 ? apiUrl1 : apiUrl2;
@@ -300,7 +338,6 @@ async function fetchQuote() {
     fetchQuote();
   }
 }
-
 // 控制背景音乐播放和暂停的函数
 function toggleMusic() {
   const music = document.getElementById('bg-music');
@@ -313,7 +350,6 @@ function toggleMusic() {
     control.innerHTML = '▶️'; // 改为播放图标
   }
 }
-
 // 复制文本函数
 function copyQuote() {
   const quote = document.getElementById('quote').textContent;
@@ -323,10 +359,8 @@ function copyQuote() {
     alert('诗词和出处已复制');
   });
 }
-
-// 页面加载完毕时，自动获取一言诗词
+  // 页面加载完毕时，自动获取一言诗词
 window.onload = fetchQuote;
-
 // 默认搜索引擎URL
 let searchEngineUrl = 'https://www.bing.com/search?q=';
 // 执行搜索的函数
@@ -375,22 +409,18 @@ window.onclick = function(event) {
     }
   }
 }
-
-// 显示或隐藏音乐选择菜单
-function toggleMusicMenu() {
-  const menu = document.getElementById('musicMenu');
+// 显示或隐藏指定的音乐选择菜单
+function toggleMusicMenu(menuNumber) {
+  const menu = document.getElementById(`musicMenu${menuNumber}`);
   menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
 }
-
 // 更换背景音乐的函数
 function changeMusic(url) {
   const music = document.getElementById('bg-music');
   music.src = url;
   music.play();
   document.querySelector('.music-control').innerHTML = '⏸️';
-  toggleMusicMenu();
 }
-
 // 显示或隐藏时钟的函数
 let clockVisible = false;
 function toggleClock() {
