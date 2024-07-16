@@ -275,6 +275,8 @@ function copyQuote() {
   const quote = document.getElementById('quote').textContent;
   const source = document.getElementById('source').textContent;
   const fullText = `${quote}\n${source}`;
+  navigator.clipboard.writeText(fullText).then(() => {
+  alert('诗词已复制');
   });
 }
 
