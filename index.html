@@ -5,14 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>一言 · 诗词</title>
 <style>
-/* 页面背景音乐播放按钮的样式，包括暂停和播放状态的背景图片设置 */
-.music-control.paused {
-  background-image: url('https://www.z4a.net/images/2024/02/17/play-button.th.png');
-}
-/* 播放状态时的背景图片 */
-.music-control.playing {
-  background-image: url('https://www.z4a.net/images/2024/02/17/video-pause-button.th.png');
-}
 /* 设置网页的背景、字体样式等 */
 body, html {
   height: 100%;
@@ -26,6 +18,7 @@ body, html {
   color: white;
   text-shadow: 2px 2px 4px #000; /* 文字阴影效果 */
   overflow: hidden;
+  user-select: none; /* 禁用用户选中文本 */
 }
 /* 页面顶部导航栏的样式 */
 .header {
@@ -75,14 +68,9 @@ body, html {
   position: fixed; /* 固定定位 */
   bottom: 20px;
   left: 20px;
-  width: 160px;
-  height: 160px;
-  background-color: rgba(255, 255, 255, 0.5); /* 背景色透明度 */
-  backdrop-filter: blur(10px); /* 背景模糊效果 */
-  border-radius: 50%; /* 圆形按钮 */
+  font-size: 48px; /* 使用表情符号时的大小 */
   cursor: pointer; /* 鼠标悬停时的指针形状 */
-  background-repeat: no-repeat; /* 背景图像不重复 */
-  background-position: center;
+  user-select: none; /* 禁用鼠标选中 */
 }
 /* 搜索框及搜索引擎选择按钮的样式 */
 .search-container {
@@ -144,6 +132,7 @@ body, html {
   font-size: 256px;
   color: white;
   text-align: center;
+  user-select: none; /* 禁用用户选中文本 */
 }
 /* 树叶图标按钮 */
 .leaf-icon {
@@ -152,6 +141,7 @@ body, html {
   right: 80px;
   font-size: 48px;
   cursor: pointer;
+  user-select: none; /* 禁用用户选中文本 */
 }
 /* 刷新按钮样式 */
 .refresh-button {
@@ -160,12 +150,13 @@ body, html {
   right: 20px;
   font-size: 48px;
   cursor: pointer;
+  user-select: none; /* 禁用用户选中文本 */
 }
 </style>
 </head>
 <body>
 <div class="header">
-  <div class="logo">一言 · 诗词(v1.0)</div>
+  <div class="logo">一言 · 诗词(v1.9)</div>
   <div class="profile"><img src="https://www.z4a.net/images/2024/02/16/1000545431.png">湘权_CN</div>
 </div>
 <!-- 搜索框和搜索引擎选择器组件部分 -->
@@ -190,7 +181,8 @@ body, html {
   <source src="https://dlink.host/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBdlZ1VnVSZ004dFhyR1M1aGxtWnl2Y0d4aF9ZP2U9UTJLRGRF.wav" type="audio/mpeg">
   浏览器不支持音频播放。
 </audio>
-<div class="music-control paused" onclick="toggleMusic()"></div>
+<!-- 播放/暂停按钮 -->
+<div class="music-control paused" onclick="toggleMusic()">▶️</div>
 <!-- 树叶图标 -->
 <div class="leaf-icon" onclick="toggleClock()">🍃</div>
 <!-- 刷新按钮 -->
@@ -198,10 +190,16 @@ body, html {
 <!-- 数字时钟显示 -->
 <div id="clock" style="display: none;"></div>
 <script>
+// 定义两个API地址
+const apiUrl1 = 'https://v1.hitokoto.cn/?c=i&encode=json';
+const apiUrl2 = 'https://international.v1.hitokoto.cn/?c=i&encode=json';
+let currentApi = 1;
+
 // 异步函数获取一言诗词数据并展示
 async function fetchQuote() {
+  const apiUrl = currentApi === 1 ? apiUrl1 : apiUrl2;
   try {
-    const response = await fetch('https://v1.hitokoto.cn/?c=i&encode=json');
+    const response = await fetch(apiUrl);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -212,24 +210,28 @@ async function fetchQuote() {
     console.error('Fetch error: ' + error.message);
     document.getElementById('quote').textContent = '加载失败';
     document.getElementById('source').textContent = '';
+    // 切换API地址并重试
+    currentApi = currentApi === 1 ? 2 : 1;
+    fetchQuote();
   }
 }
+
 // 控制背景音乐播放和暂停的函数
 function toggleMusic() {
   const music = document.getElementById('bg-music');
   const control = document.querySelector('.music-control');
   if (music.paused) {
     music.play();
-    control.classList.remove('paused');
-    control.classList.add('playing');
+    control.innerHTML = '⏸️'; // 改为暂停图标
   } else {
     music.pause();
-    control.classList.remove('playing');
-    control.classList.add('paused');
+    control.innerHTML = '▶️'; // 改为播放图标
   }
 }
+
 // 页面加载完毕时，自动获取一言诗词
 window.onload = fetchQuote;
+
 // 默认搜索引擎URL
 let searchEngineUrl = 'https://www.bing.com/search?q=';
 // 执行搜索的函数
@@ -260,10 +262,9 @@ function searchOnEnter(event) {
 // 点击页面其他位置时，隐藏搜索引擎菜单
 window.onclick = function(event) {
   if (!event.target.matches('.engine-button')) {
-    var dropdowns = document.getElementsByClassName("engine-menu");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
+    const dropdowns = document.getElementsByClassName("engine-menu");
+    for (let i = 0; i < dropdowns.length; i++) {
+      const openDropdown = dropdowns[i];
       if (openDropdown.style.display === 'block') {
         openDropdown.style.display = 'none';
       }
