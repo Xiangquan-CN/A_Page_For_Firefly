@@ -32,16 +32,17 @@ body, html {
   width: 100%;
   padding: 10px 20px;
   box-sizing: border-box; /* 盒子模型为边框盒 */
+  z-index: 10; /* 提升层级 */
 }
 /* 顶部导航栏内的Logo样式 */
 .header .logo {
-  font-size: 48px;
+  font-size: 6vw; /* 使用相对单位，使其能随屏幕变化 */
 }
 /* 用户头像样式 */
 .header .profile {
   display: flex;
   align-items: center;
-  font-size: 24px;
+  font-size: 3vw; /* 使用相对单位，使其能随屏幕变化 */
 }
 .header img {
   width: 50px;
@@ -53,40 +54,40 @@ body, html {
 #quote {
   text-align: center;
   width: 80%;
-  font-size: 72px;
-  margin: 300px auto 50px;
+  font-size: 8vw; /* 使用相对单位，使其能随屏幕变化 */
+  margin: 40vh auto 5vh; /* 调整距离搜索栏 */
 }
-/* 出处显示部分的样式 */
 #source {
   text-align: center;
   width: 80%;
-  font-size: 48px;
-  margin: 0px auto;
+  font-size: 5vw; /* 使用相对单位，使其能随屏幕变化 */
+  margin: 0 auto;
 }
 /* 音乐控制按钮的基本样式 */
 .music-control {
   position: fixed; /* 固定定位 */
-  bottom: 20px;
-  left: 20px;
-  font-size: 48px; /* 使用表情符号时的大小 */
+  bottom: 5vh;  /* 调整位置 */
+  left: 5vw; 
+  font-size: 8vw; /* 使用相对单位，使其能随屏幕变化 */
   cursor: pointer; /* 鼠标悬停时的指针形状 */
-  user-select: none; /* 禁用鼠标选中 */
+  user-select: none; /* 禁用用户选中 */
 }
 /* 搜索框及搜索引擎选择按钮的样式 */
 .search-container {
   position: fixed; /* 固定定位 */
-  top: 100px; /* 距离顶部的位置 */
+  top: 15vh; /* 距离顶部的位置，增大距离避免重叠 */
   left: 50%; /* 水平居中定位 */
   transform: translateX(-50%); /* 完成水平居中 */
   display: flex; /* 使用弹性盒模型进行布局 */
   align-items: center; /* 子元素在交叉轴上居中对齐 */
   gap: 10px; /* 子元素之间的间隔 */
+  z-index: 5; /* 提升层级，避免遮盖 */
 }
 .search-box {
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
-  padding: 10px 10px;
-  font-size: 36px;
+  padding: 2vh 2vw; /* 使用相对单位，使其能随屏幕变化 */
+  font-size: 4vw; 
   width: auto;
   outline: none;
   color: black;
@@ -96,8 +97,8 @@ body, html {
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
   cursor: pointer;
-  padding: 7px 7px;
-  font-size: 36px;
+  padding: 1.5vh 1.5vw; /* 使用相对单位，使其能随屏幕变化 */
+  font-size: 4vw; 
   border-radius: 5px;
   outline: none;
 }
@@ -107,16 +108,16 @@ body, html {
   position: absolute; /* 绝对定位 */
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* 阴影效果 */
-  padding: 10px 10px;
-  font-size: 36px;
+  padding: 1vh 1vw; /* 使用相对单位，使其能随屏幕变化 */
+  font-size: 4vw; 
   z-index: 1;
   border-radius: 5px;
-  top: 45px; /* 距离顶部按钮的位置 */
+  top: 5vh; /* 距离顶部按钮的位置 */
 }
 .engine-menu a {
   color: white;
-  padding: 5px 5px;
-  font-size: 24px;
+  padding: 1vh 1vw; /* 使用相对单位，使其能随屏幕变化 */
+  font-size: 3vw; 
   text-decoration: none;
   display: block;
   border-radius: 5px;
@@ -129,7 +130,7 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: '微软雅黑', sans-serif;
-  font-size: 256px;
+  font-size: 25vw; /* 使用相对单位，使其能随屏幕变化 */
   color: white;
   text-align: center;
   user-select: none; /* 禁用用户选中文本 */
@@ -137,26 +138,64 @@ body, html {
 /* 树叶图标按钮 */
 .leaf-icon {
   position: fixed;
-  bottom: 20px;
-  right: 80px;
-  font-size: 48px;
+  bottom: 5vh;
+  right: 15vw; /* 调整位置 */
+  font-size: 8vw; /* 使用相对单位，使其能随屏幕变化 */
   cursor: pointer;
   user-select: none; /* 禁用用户选中文本 */
 }
 /* 刷新按钮样式 */
 .refresh-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  font-size: 48px;
+  bottom: 5vh;
+  right: 10vw; /* 调整位置 */
+  font-size: 8vw; /* 使用相对单位，使其能随屏幕变化 */
   cursor: pointer;
   user-select: none; /* 禁用用户选中文本 */
+}
+
+/* 复制按钮样式 */
+.copy-button {
+  position: fixed;
+  bottom: 5vh;
+  right: 5vw; /* 调整位置 */
+  font-size: 8vw; /* 使用相对单位，使其能随屏幕变化 */
+  cursor: pointer;
+  user-select: none; /* 禁用用户选中文本 */
+}
+
+/* 媒体查询以兼容不同设备的屏幕方向 */
+@media (orientation: landscape) {
+  #quote {
+    font-size: 5vw;
+    margin: 30vh auto 5vh; /* 调整距离搜索栏 */
+  }
+  #source {
+    font-size: 3vw;
+  }
+  .search-box, .search-button, .engine-button {
+    font-size: 2.5vw;
+    padding: 1vh 1vh;
+  }
+  .engine-menu {
+    font-size: 2.5vw;
+    padding: 1vh 1vh;
+  }
+  .engine-menu a {
+    font-size: 2vw;
+  }
+  #clock {
+    font-size: 15vw;
+  }
+  .leaf-icon, .refresh-button, .copy-button, .music-control {
+    font-size: 5vw;
+  }
 }
 </style>
 </head>
 <body>
 <div class="header">
-  <div class="logo">一言 · 诗词(v1.9)</div>
+  <div class="logo">一言 · 诗词(v2)</div>
   <div class="profile"><img src="https://www.z4a.net/images/2024/02/16/1000545431.png">湘权_CN</div>
 </div>
 <!-- 搜索框和搜索引擎选择器组件部分 -->
@@ -187,6 +226,8 @@ body, html {
 <div class="leaf-icon" onclick="toggleClock()">🍃</div>
 <!-- 刷新按钮 -->
 <div class="refresh-button" onclick="fetchQuote()">🔄</div>
+<!-- 复制按钮 -->
+<div class="copy-button" onclick="copyQuote()">📋</div>
 <!-- 数字时钟显示 -->
 <div id="clock" style="display: none;"></div>
 <script>
@@ -227,6 +268,16 @@ function toggleMusic() {
     music.pause();
     control.innerHTML = '▶️'; // 改为播放图标
   }
+}
+
+// 复制文本函数
+function copyQuote() {
+  const quote = document.getElementById('quote').textContent;
+  const source = document.getElementById('source').textContent;
+  const fullText = `${quote}\n${source}`;
+  navigator.clipboard.writeText(fullText).then(() => {
+    alert('诗词和出处已复制');
+  });
 }
 
 // 页面加载完毕时，自动获取一言诗词
